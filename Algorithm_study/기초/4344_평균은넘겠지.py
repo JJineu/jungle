@@ -1,15 +1,22 @@
 #평균은 넘겠지/배열
-n = int(input())
+from sys import stdin 
+input = stdin.readline
 
-for _ in range(n):
-    list_a = list(map(int, input().split()))
-    avg = sum(list_a[1:])/list_a[0]
-    count = 0
-    for i in list_a[1:]:
-        if i>avg:
-            count += 1
-    avg_per = count/list_a[0]*100
-    print(f"{round(avg_per,3):.3f}%")
+c = int(input())
+for i in range(c):
+    score = list(map(int, input().split()))
 
+    n = score[0]
+    sum = 0
+    for i in score[1:]:
+        sum += i
+
+    avg = sum / n
+    cnt = 0
+    for i in score[1:]:
+        if i > avg:
+            cnt += 1
+
+    print(f'{round((cnt/n)*100,3):.3f}%')
 
 

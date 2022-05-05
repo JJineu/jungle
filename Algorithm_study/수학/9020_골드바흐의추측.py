@@ -1,20 +1,5 @@
 #골드바흐의추측/수학
 
-# case = []
-# for i in range(10000):
-#     flag= True
-#     for j in range(2, int(i**0.5)+1):
-#         if i % j == 0:
-#             flag =False
-#         else:
-#             case.append(i)
-# result =[]
-# for i in range(N,0,-1):
-#     for i in range(N):
-#         if N / case[i] == case[j]:
-#             if min(abs(int(case[i])-int(case[j]))):
-#                 print(i, j)
-
 
 # # 1. 테스트 케이스 개수
 # N = int(input())
@@ -99,3 +84,60 @@ for i in range(int(input())):
             lst.append([x,n-x])
     print(*lst[-1])
     #*아스테리카 사용
+
+
+
+#에라토스테네스
+from sys import stdin 
+input = stdin.readline
+
+prime = [False, False] + [True] * (9999)  # true이면 소수
+for i in range(2, int(10001 ** 0.5) + 1):
+    if prime[i]:
+        for j in range(2*i, 10001, i):
+            prime[j] = False
+
+
+t = int(input())
+for _ in range(t):
+    i = int(input())
+    for j in range(i//2,0,-1):  # 반값 이하에서 검색, 작은수j찾기 위해
+        if prime[j] and prime[i-j]:
+            print(j, i-j)
+            break
+
+
+
+
+
+
+# 소수 문제 유형 정리
+
+# 1. 소수 판별(에라토스테네스의 체) > True or False
+def is_prime(n) :
+    prime = [False,False]+ [True] * n;
+    for i in range(2, int((n+1)**0.5)+1):
+        if prime[i] :
+            for j in range(2*i, n+1, i):
+                prime[j] = False;
+    return prime;
+
+# 소수 판별(에라토스테네스의 체) 개선
+check = [False, False] + [True] * n
+    # 짝수 처리
+    for i in range(4, n+1, 2):
+        check[i] = False
+    # 홀수 처리
+    for i in range(3, int((n+1)**0.5)+1, 2): # 3, 5, 7, ...
+        if check[i]:
+            for j in range(3*i, n+1, 2*i): # i = 3인 경우, 3, 9, 15, ... >>> 중복으로 짝수 처리하는 것 제거
+                check[j] = False
+
+# 2. n까지의 소수 목록 산출
+def get_prime(n):
+    prime = [False,False]+ [True] * n;
+    for i in range(2, int((n+1)**0.5)+1):
+        if prime[i] :
+            for j in range(2*i, n+1, i):
+                prime[j] = False;
+    return [k for k in range(2,n) if prime[k] == True];

@@ -10,18 +10,18 @@ from itertools import permutations
 
 n = int(input())
 k = int(input())
-s =[]
+arr =[]
 for i in range(n):
-    s.append(input())
+    arr.append(input())
 
-SSS=[]
-sss = list(permutations(s,k))
-for i in sss:
-    SSS.append("".join(i))
+temp=[]
+card = list(permutations(arr,k))
+for i in card:
+    temp.append("".join(i))
  
-SSS_result =[]
-for i in SSS:
-    if i not in SSS_result:
-        SSS_result.append(i)
+result =[]
+for i in temp:
+    if i not in result:
+        result.append(i)
 
-print(len(SSS_result))
+print(len(result))

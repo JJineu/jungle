@@ -5,7 +5,7 @@ N = int(input().split())
 travel_cost = [list(map(int, sys.stdin.readline().split())) for _ in range(N)]
 min_value = sys.maxsize
 
-def dfs_backtracking(start, next, value, visited)
+def dfs_backtracking(start, next, value, visited):
     global min_value
 
     if len(visited) == N:

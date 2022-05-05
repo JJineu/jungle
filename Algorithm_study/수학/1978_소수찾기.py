@@ -1,12 +1,5 @@
 #소수찾기/수학
 
-#안됨
-# for j in range (100):
-#     for i in range(2,j):
-#         if j%i != 0: listB.append(j)
-
-# print(listB)
-
 #isPrime함수
 # n=100
 # def isPrime(a):
@@ -35,41 +28,41 @@
 # print(count)
 
 
-N= int(input())
-s= map(int, input().split())
-count = 0
+from sys import stdin 
+input = stdin.readline
 
-for i in s:
-    if i < 2:
-        continue
-    else:
-        flag = True
-        for j in range(2, int(i**0.5)+1):
-            if i % j == 0:
-                flag = False
-                break
-        if flag:
-            count += 1
+n = int(input())
+
+prime = []
+for i in range(2,1001):
+    flag = True
+    for j in range(2, int(i**0.5)+1):
+        if i % j == 0:
+            flag = False
+            break
+    if flag:
+        prime.append(i)
+
+test_n = list(map(int, input().split()))
+count = 0
+for test in test_n:
+    if test in prime:
+        count += 1
 print(count)
 
 
-# N = int(input())
-# s = map(int, input().split())
-# prime = []
+# 에라토스테네스의 채
+n = int(input())
 
-# for i in range(2, 1001):
-#     flag = True
-#     for j in range(2, int(i**0.5)+1):
-#         if i%j == 0:
-#             flag = False
-#             break
-#     if flag:
-#         prime.append(i)
+prime = [False, False] + [True] * (999)  # true이면 소수
+for i in range(2, int(1001 ** 0.5) + 1):
+    if prime[i]:
+        for j in range(2*i, 1001, i):
+            prime[j] = False
 
-# count =0
-# for k in s:
-#     if k in prime:
-#         count += 1
-
-# print(count)
-# print(prime)
+test_n = list(map(int, input().split()))
+count = 0
+for test in test_n:
+    if prime[test]:
+        count += 1
+print(count)

@@ -1,4 +1,7 @@
 #하노이탑/재귀함수
+# https://ipwag.tistory.com/28
+
+
 # hanoi(n, from, to, other)
 # def hanoi(n,a,b,c):
 #     if n == 1:
@@ -40,9 +43,9 @@ def hanoi(n, start, m, goal):
     if n == 1:
         print(start, goal, sep = " ")
     else:
-        hanoi(n-1, start, goal, m)
-        hanoi(1, start, m, goal)
-        hanoi(n-1, m, start, goal)
+        hanoi(n-1, start, goal, m)  # start->middle
+        hanoi(1, start, m, goal)    # print하기 위해
+        hanoi(n-1, m, start, goal)  # middle->goal
 
 n = int(input())
 print(2**n-1)

@@ -1,43 +1,59 @@
-from sys import stdin 
+from sys import stdin
 input = stdin.readline
-from itertools import permutations
+
+# n = int(input())
+# graph = [list(map(int, input().split())) for _ in range(n)]
+# visit = [[0]*n for _ in range(n)]
+
+# res = []
+# sum_li = 0
+# def dfs(depth):
+#     global sum_li
+#     if depth == n:
+#         sum_li = max(sum_li, sum(res))
+#         return 
+
+#     for i in range(n):
+#         for j in range(n):
+#             if visit[i][j]:
+#                 continue
+#             visit[i][j] = 1
+#             res.append(graph[i][j])
+#             dfs(depth+1)
+#             visit[i][j] = 0
+#             res.pop()
+# dfs(0)
+# print(print(sum_li))
+
 
 n = int(input())
-k = int(input())
-cards = list(int(input()) for _ in range(n))
+nums = list(map(int, input().split()))
+plus, minus, multiply, divide = map(int, input().split())
 
-K = k
-res = []
-while K:
-    for i in range(n):
-        res.append(cards[i])
+min_nums = 1e9
+max_nums = -1e9
 
-    K -= 1
-
-
-print(len(set(res)))
+def cal(depth, total, plus, minus, multiply, divide):
+    global min_nums
+    global max_nums
 
 
-check = [0]*n
-# 조합 카드
-temp = []
-# 중복없는 카드
-result = set()
+    if depth == n:
+        max_nums = max(max_nums, total)
+        min_nums = min(min_nums, total)
+        # print(max_nums)
+        return       
 
-def card(N):
-    if N == k:
-        result.add(''.join(temp))
-        return
+    if plus:
+        cal(depth+1, total+nums[depth], plus-1, minus, multiply, divide)
+        print(nums[depth])
+    if minus:
+        cal(depth+1, total-nums[depth], plus, minus-1, multiply, divide)
+    if minus:
+        cal(depth+1, total*nums[depth], plus, minus, multiply-1, divide)
+    if minus:
+        cal(depth+1, int(total/nums[depth]), plus, minus, multiply, divide-1)
 
-    for i in range(n):
-        if check[i]: continue
-        check[i] = 1
-        temp.append(arr[i])
-
-        card(N+1)
-
-        check[i] = 0
-        temp.pop()
-        
-card(0)
-print(len(result))
+cal(1,nums[0],plus,minus,multiply,divide)
+print(max_nums)
+print(min_nums)

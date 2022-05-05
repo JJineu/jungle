@@ -17,6 +17,7 @@ result = set()
 def card(N):
     if N == k:
         result.add(''.join(temp))
+        print(result)
         return
 
     for i in range(n):

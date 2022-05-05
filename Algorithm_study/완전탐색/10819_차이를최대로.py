@@ -8,7 +8,7 @@ s = list(map(int, stdin.readline().split()))
 
 result = 0
 for com in permutations(s):
-    sum = 0 #+=쓰기전에 선언할 것, for문 돌때 초기화
+    sum = 0     # for문 돌때 초기화
     for i in range(N-1):
         sum += abs(com[i]-com[i+1])
     result = max(result,sum)
