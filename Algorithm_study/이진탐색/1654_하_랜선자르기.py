@@ -4,24 +4,29 @@
 from sys import stdin 
 input = stdin.readline
 
-k, n = map(int, input().split())
-li = list(int(input()) for _ in range(k))
+# n 범위 10e9, 2초 ->
 
-start = 1   # 0으로 하면 안됨, 인덱스[0]는 가능
-end = max(li)
-result = 0
+def main():
+    k, n = map(int, input().split())
+    width = list(int(input()) for _ in range(k))
 
-while start <= end:
-    mid = (start + end)//2
-    count = 0
+    start = 1
+    end = max(width)
+    res = 0
 
-    for i in li:
-        count += i//mid
+    while start <= end:             # 등호 들어가야 함 =
+        mid = (start+end)//2        # 잘라낼 랜선 길이 단위
+        cnt = 0
+        for i in range(k):
+            # if width[i]>= mid:      # 없어도 됨
+            cnt += width[i]//mid
 
-    if count < n:
-        end = mid -1
-    else:
-        result = mid
-        start = mid +1
+        if cnt >= n:
+            res = mid
+            start = mid +1
+        else:
+            end = mid -1
 
-print(result)
+    print(res)
+
+main()

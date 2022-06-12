@@ -1,59 +1,46 @@
-from sys import stdin
-input = stdin.readline
+def solution(orders, course):
+    orders = orders
+    course = course
+    answer = []
 
-# n = int(input())
-# graph = [list(map(int, input().split())) for _ in range(n)]
-# visit = [[0]*n for _ in range(n)]
+    d = [0] * 91
+    for i in range(len(orders)):
+        for j in orders[i]:
+            # print(orders[i])
+            d[ord(j)] += 1
+            # print(d[90])
 
-# res = []
-# sum_li = 0
-# def dfs(depth):
-#     global sum_li
-#     if depth == n:
-#         sum_li = max(sum_li, sum(res))
-#         return 
+    for i in course:
+        com = []
+        for j in range(65, 91):
+            if d[j] >= 2:   # 잘못생각함. 두명의 주문에, 결과에 나오는 코스메뉴가 들어가 있어야 함.
+                com.append(str(j))
 
-#     for i in range(n):
-#         for j in range(n):
-#             if visit[i][j]:
-#                 continue
-#             visit[i][j] = 1
-#             res.append(graph[i][j])
-#             dfs(depth+1)
-#             visit[i][j] = 0
-#             res.pop()
-# dfs(0)
-# print(print(sum_li))
+    # print(com)
+    return answer
+
+# solution(["ABCFG", "AC", "CDE", "ACDE", "BCFG", "ACDEH"], [2,3,4])
+# print(ord('Z')) # 65-90
 
 
-n = int(input())
-nums = list(map(int, input().split()))
-plus, minus, multiply, divide = map(int, input().split())
+# 정답코드
 
-min_nums = 1e9
-max_nums = -1e9
+from collections import Counter
+from itertools import combinations
 
-def cal(depth, total, plus, minus, multiply, divide):
-    global min_nums
-    global max_nums
+def solution(orders, course):
+    result = []
 
+    for course_size in course:
+        order_combinations = []
+        for order in orders:
+            # order.sort()
+            order_combinations += combinations(sorted(order), course_size)
 
-    if depth == n:
-        max_nums = max(max_nums, total)
-        min_nums = min(min_nums, total)
-        # print(max_nums)
-        return       
-
-    if plus:
-        cal(depth+1, total+nums[depth], plus-1, minus, multiply, divide)
-        print(nums[depth])
-    if minus:
-        cal(depth+1, total-nums[depth], plus, minus-1, multiply, divide)
-    if minus:
-        cal(depth+1, total*nums[depth], plus, minus, multiply-1, divide)
-    if minus:
-        cal(depth+1, int(total/nums[depth]), plus, minus, multiply, divide-1)
-
-cal(1,nums[0],plus,minus,multiply,divide)
-print(max_nums)
-print(min_nums)
+        most_ordered = Counter(order_combinations).most_common()
+        # most_common 데이터의 개수가 많은 순으로 정렬된 배열을 리턴
+        result += [ k for k, v in most_ordered if v > 1 and v == most_ordered[0][1] ]
+        # [('AC', 3), ('BD', 2), ('BC', 1) ]
+        # result += ['AC', 'BD']
+        
+    return [ ''.join(v) for v in sorted(result) ]

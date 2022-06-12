@@ -3,28 +3,31 @@
 
 # 떡 자르기의 반대
 
-from sys import stdin 
+from sys import stdin
 input = stdin.readline
 
-n, k = map(int, input().split())
-level = list(int(input()) for _ in range(n))
-
-start = min(level)
-end = max(level)+k
-result = 0
-
-while start <= end:
-    mid = (start+end)//2
-    sum = 0
-
-    for i in level:
-        if i < mid:
-            sum += mid - i
+# 파라메트릭 서치
+def main():
+    n, k = map(int, input().split())
+    level_li = list(int(input()) for _ in range(n))
+    level_li.sort()
     
-    if sum > k:
-        end = mid -1
-    else:
-        start = mid + 1
-        result = mid
+    start = min(level_li)
+    end = start + k
+    t = 0
+    while start <= end:
+        mid = (start+end)//2
+        tmp = 0
+        for level in level_li:
+            if level < mid:
+                tmp += mid - level
 
-print(result)
+        if tmp > k:
+            end = mid -1
+        else:
+            start = mid +1
+            t = mid 
+
+    print(t)
+
+main()
