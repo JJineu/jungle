@@ -35,3 +35,17 @@ for i in range(2,n+1):
     d[i] = d[i-1]+d[i-2]
 
 print(d[n])
+
+
+input = __import__('sys').stdin.readline
+def main():
+    n = int(input())
+    dp = [0,1] + [0]*(n-1)
+    for i in range(n+1):
+        if i == 0 or i == 1:
+            continue
+        else:
+            dp[i] = dp[i-1]+ dp[i-2]
+    
+    print(dp[n])
+main()

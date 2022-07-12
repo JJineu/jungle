@@ -58,10 +58,10 @@ dy = [1, -1, 0, 0]
 def bfs(x, y, z):
     queue = deque()
     queue.append((x, y, z))
-
+    cnt = 0
     while queue:
         a, b, c = queue.popleft()
-
+    
         if a == n - 1 and b == m - 1:
             return visited[a][b][c]
 
@@ -74,10 +74,16 @@ def bfs(x, y, z):
             if graph[nx][ny] == 1 and c == 0 :
                 visited[nx][ny][1] = visited[a][b][0] + 1
                 queue.append((nx, ny, 1))
+                # print('wall', (nx, ny, 1))
+                # print(cnt)
             # 다음 이동할 곳이 벽이 아니고, 아직 한 번도 방문하지 않은 곳이면
             elif graph[nx][ny] == 0 and visited[nx][ny][c] == 0:
                 visited[nx][ny][c] = visited[a][b][c] + 1
                 queue.append((nx, ny, c))
+                # print((nx, ny, c))
+                # print(cnt)
+                print(visited)
+            cnt += 1
     return -1
 
 print(bfs(0, 0, 0))

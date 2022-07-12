@@ -3,12 +3,12 @@
 from sys import stdin 
 input = stdin.readline
 
-def find(p):
+def find(p, parent):
     if parent[p] != p:
         parent[p] = find(parent[p])
     return parent[p]
 
-def union_parent(a,b):
+def union_parent(a,b, parent):
     a = find(a)
     b = find(b)
     if a<b:
@@ -24,13 +24,14 @@ for _ in range(k):
     parent = [0]*(V+1)
     for i in range(1, V+1):
         parent[i] = i
+    # parent = list(range(1,V+1))
 
     for i in range(E):
         u, v = map(int, input().split())
-        union_parent(u,v)
+        union_parent(u,v, parent)
 
     for i in range(1, V+1):
-        find(i)
+        find(i, parent)
         
     if len(set(parent))-1 == 2:
         print("YES")
